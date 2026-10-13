@@ -1,187 +1,747 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Roadmap to Becoming a System Designer</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b7a8a'/%3E%3Cpath d='M32 22v10M32 32H18v10M32 32h14v10' stroke='%23fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='24' y='10' width='16' height='12' rx='3' fill='%23fff'/%3E%3Crect x='10' y='42' width='16' height='12' rx='3' fill='%23fff'/%3E%3Crect x='38' y='42' width='16' height='12' rx='3' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f4f7fa;--card:#fff;--ink:#12213a;--mute:#5b6b82;--line:#d9e1ea;--acc:#0b7a8a;--accsoft:#dff1f4;--done:#2b8a5a;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1626;--card:#16223a;--ink:#e8eef7;--mute:#9fb0c7;--line:#2a3a56;--acc:#4fc3d3;--accsoft:#16394a;--done:#5fcf95}}
-:root[data-theme="dark"]{--bg:#0e1626;--card:#16223a;--ink:#e8eef7;--mute:#9fb0c7;--line:#2a3a56;--acc:#4fc3d3;--accsoft:#16394a;--done:#5fcf95}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
-*,*:before,*:after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-h1,h2{font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;line-height:1.15;margin:0}
-header{max-width:1040px;margin:0 auto;padding:48px 24px 16px}
-h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;max-width:18ch}
-.logo{width:56px;height:56px;display:block;margin-bottom:18px}
-header p{color:var(--mute);max-width:56ch;margin:14px 0 0}
-.wrap{max-width:1040px;margin:0 auto;padding:16px 24px 64px;display:grid;grid-template-columns:230px 1fr;gap:40px}
-nav{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));align-self:start}
-.total{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
-.total b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.6rem}
-.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:8px}
-.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .25s}
-nav a{display:flex;justify-content:space-between;gap:8px;padding:6px 10px;color:var(--mute);text-decoration:none;border-radius:6px;font-size:.9rem}
-nav a:hover,nav a:focus-visible{background:var(--accsoft);color:var(--ink);outline:none}
-nav a.ok{color:var(--done)}
-main{border-left:2px solid var(--line);padding-left:32px}
-section{position:relative;margin-bottom:36px}
-section:before{content:"";position:absolute;left:-41px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--acc)}
-section.ok:before{background:var(--done);border-color:var(--done)}
-h2{font-size:1.5rem;font-weight:700}
-.time{color:var(--mute);font-size:.9rem;margin:2px 0 10px}
-.intro{margin:0 0 10px}
-ul{list-style:none;margin:0;padding:0}
-ul ul{margin:4px 0 4px 28px}
-li{margin:2px 0}
-label{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:8px;cursor:pointer}
-label:hover{background:var(--accsoft)}
-input[type=checkbox]{appearance:none;flex:none;width:19px;height:19px;margin:3px 0 0;border:2px solid var(--mute);border-radius:5px;background:var(--card);display:grid;place-content:center;cursor:pointer}
-input[type=checkbox]:checked{background:var(--done);border-color:var(--done)}
-input[type=checkbox]:checked:after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
-input[type=checkbox]:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-input[type=checkbox]:checked+span{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--line)}
-.goal{margin:12px 0 0;padding:10px 14px;border-left:4px solid var(--acc);background:var(--accsoft);border-radius:0 8px 8px 0}
-.res a{color:var(--acc);text-underline-offset:3px}
-.res a:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:3px}
-.res li{padding:4px 8px}
-.auth input{width:100%;margin:0 0 8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:.9rem}
-.auth input:focus-visible{outline:3px solid var(--acc);outline-offset:1px}
-.auth button{font:inherit;font-size:.85rem;padding:7px 12px;border-radius:8px;border:1px solid var(--acc);background:var(--acc);color:var(--card);cursor:pointer}
-.auth button.ghost{background:transparent;color:var(--acc)}
-.auth .btns{display:flex;gap:8px;flex-wrap:wrap}
-.auth .small{color:var(--mute);font-size:.8rem;margin-top:8px}
-.auth [hidden]{display:none}
-footer{max-width:1040px;margin:0 auto;padding:0 24px 40px;color:var(--mute);font-size:.85rem}
-@media (max-width:760px){.wrap{grid-template-columns:1fr;gap:16px}nav{position:static}nav .links{display:none}main{padding-left:24px}section:before{left:-33px}header{padding-top:32px}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
-</style>
-</head>
-<body>
-<header>
-<svg class="logo" viewBox="0 0 64 64" role="img" aria-label="System design roadmap logo"><rect width="64" height="64" rx="14" fill="#0b7a8a"/><path d="M32 22v10M32 32H18v10M32 32h14v10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="24" y="10" width="16" height="12" rx="3" fill="#fff"/><rect x="10" y="42" width="16" height="12" rx="3" fill="#fff"/><rect x="38" y="42" width="16" height="12" rx="3" fill="#fff"/></svg>
-<h1>Roadmap to Becoming a System Designer</h1>
-<p>A dependency-ordered study path built from the roadmap.sh System Design checklist. Each stage prepares you for the next. Tick items off as you go; your progress is saved in this browser.</p>
-</header>
-<div class="wrap">
-<nav aria-label="Stages">
-<div class="total"><b id="pct">0%</b> <span style="color:var(--mute)">complete</span><div class="bar"><i id="tbar"></i></div></div>
-<div class="total auth" id="auth"><div id="authform"><button type="button" id="google">Continue with Google</button></div><div id="authed" hidden><div class="small" id="who"></div><button type="button" id="signout" class="ghost">Sign out</button></div><div class="small" id="authmsg" role="status"></div></div>
-<div class="links" id="links"></div>
-</nav>
-<main id="main"></main>
-</div>
-<footer>A realistic timeline is about 3-4 months at 5-8 hours a week to get comfortable. The skill keeps growing with practice after that.</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script>
-var SUPABASE_URL="https://ihzkrxrqkrmdaunlhkon.supabase.co",SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloemtyeHJxa3JtZGF1bmxoa29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5MDMwMDUsImV4cCI6MjEwNzQ3OTAwNX0.jUjD9HJ5oGLmlPHJAwIkhJV9BJ-gQHVGD88GlM0z1Ps";
-var S=[
-{t:"Foundations",w:"1-2 weeks",i:"Learn the vocabulary and the core trade-offs first.",l:[
-"What system design is, and how to approach a design problem",
-"Performance vs scalability, latency vs throughput",
-"Availability vs consistency, and the **CAP theorem** (AP vs CP)",
-"Availability in numbers (the \"nines\"), and availability in parallel vs in sequence"],
-g:"You can explain why you can't have everything, and what you'd trade away."},
-{t:"Networking and Building Blocks",w:"2-3 weeks",l:[
-"DNS, HTTP, TCP vs UDP","CDNs (push vs pull)",
-"Load balancers: L4 vs L7, algorithms, load balancer vs reverse proxy",
-"Horizontal vs vertical scaling","Application layer: microservices, service discovery"]},
-{t:"Data",w:"3-4 weeks",i:"This is the most important stage, because most real design problems come down to data.",l:[
-"**SQL vs NoSQL**, and the four NoSQL types: key-value, document, wide-column, graph",
-"Replication (master-slave, master-master), failover (active-active, active-passive)",
-"**Sharding**, federation, denormalization, SQL tuning",
-"Consistency patterns: weak, eventual, strong"]},
-{t:"Caching and Asynchronism",w:"2 weeks",l:[
-"Cache levels: client, CDN, web server, database, application",
-"Strategies: cache-aside, write-through, write-behind, refresh-ahead",
-"Message queues, task queues, back pressure",
-"Background jobs (event-driven vs scheduled)","Idempotent operations"]},
-{t:"Communication APIs",w:"1 week",l:["RPC vs REST vs gRPC vs GraphQL, and when to pick each"]},
-{t:"Reliability and Operations",w:"2-3 weeks",l:[
-"Monitoring: health, availability, performance, security, usage, plus alerting and visualization",
-"Performance antipatterns: chatty I/O, busy database, no caching, noisy neighbor, retry storm, and so on",
-"Reliability patterns: **circuit breaker, bulkhead, retry, throttling, health endpoint monitoring**"]},
-{t:"Cloud Design Patterns",w:"ongoing",i:"You don't need to master all of these. Aim for an overview of each, and prioritize:",l:[
-"**Messaging:** pub/sub, competing consumers, queue-based load leveling",
-"**Data:** CQRS, event sourcing, materialized view, cache-aside",
-"**Design:** strangler fig, sidecar, API gateway patterns, backends for frontend",
-"**Resiliency:** leader election, compensating transaction"]},
-{t:"Practice",w:"start alongside Stage 3",i:"Reading alone won't make you a system designer. Start this alongside Stage 3 rather than waiting until the end.",l:[
-"**Do design exercises.** Start with a URL shortener, then a rate limiter, a chat app, a news feed, a notification service, and a video streaming platform.",
-["**Use a repeatable framework.**",[
-"Clarify requirements, both functional and non-functional.","Estimate scale (users, QPS, storage).",
-"Draw a high-level design.","Go deeper on the data model and bottlenecks.","Discuss trade-offs and failure modes."]],
-"**Read real architecture write-ups.** Engineering blogs from Netflix, Uber, Discord, and Stripe are good sources.",
-"**Build something small.** Add a cache, a queue, or a read replica to a project of your own so you see these things break.",
-"**Explain your designs out loud** or to a peer, since interviews and design reviews are conversations."]}
-];
-var R=["[*Designing Data-Intensive Applications*](https://dataintensive.net/) by Martin Kleppmann (the best single book)","[The System Design Primer](https://github.com/donnemartin/system-design-primer) on GitHub","The [roadmap.sh System Design roadmap](https://roadmap.sh/system-design), as a checklist to tick off"];
-var store={},KEY="sd-roadmap-v1",n=0;
-try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){store={}}
-function fmt(s){return s.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\[(.+?)\]\((https:\/\/[^)\s]+)\)/g,"<a href=\"$2\" target=\"_blank\" rel=\"noopener noreferrer\">$1</a>").replace(/\*(.+?)\*/g,"<em>$1</em>")}
-function item(x,si){
- if(Array.isArray(x)){return "<li>"+row(x[0],si)+"<ul>"+x[1].map(function(y){return "<li>"+row(y,si)+"</li>"}).join("")+"</ul></li>"}
- return "<li>"+row(x,si)+"</li>"}
-function row(t,si){var id="c"+(n++);return '<label><input type="checkbox" data-s="'+si+'" id="'+id+'"'+(store[id]?" checked":"")+'><span>'+fmt(t)+'</span></label>'}
-var h="",lk="";
-S.forEach(function(s,i){
- h+='<section id="s'+i+'"><h2>Stage '+(i+1)+': '+s.t+'</h2><div class="time">'+s.w+'</div>'+(s.i?'<p class="intro">'+fmt(s.i)+'</p>':'')+'<ul>'+s.l.map(function(x){return item(x,i)}).join("")+'</ul>'+(s.g?'<p class="goal"><strong>Goal:</strong> '+s.g+'</p>':'')+'</section>';
- lk+='<a href="#s'+i+'" id="n'+i+'"><span>'+(i+1)+'. '+s.t+'</span><span id="p'+i+'"></span></a>'});
-h+='<section id="res"><h2>Recommended resources</h2><ul class="res">'+R.map(function(r){return "<li>"+fmt(r)+"</li>"}).join("")+'</ul></section>';
-document.getElementById("main").innerHTML=h;document.getElementById("links").innerHTML=lk;
-function upd(){
- var all=document.querySelectorAll("input[type=checkbox]"),d=0;
- for(var i=0;i<all.length;i++)if(all[i].checked)d++;
- var p=Math.round(100*d/all.length);
- document.getElementById("pct").textContent=p+"%";document.getElementById("tbar").style.width=p+"%";
- S.forEach(function(s,i){var q=document.querySelectorAll('input[data-s="'+i+'"]'),c=0;
-  for(var j=0;j<q.length;j++)if(q[j].checked)c++;
-  document.getElementById("p"+i).textContent=c+"/"+q.length;
-  var ok=c===q.length;document.getElementById("s"+i).classList.toggle("ok",ok);document.getElementById("n"+i).classList.toggle("ok",ok)})}
-document.addEventListener("change",function(e){
- if(e.target.type!=="checkbox")return;
- if(e.target.checked)store[e.target.id]=1;else delete store[e.target.id];
- try{localStorage.setItem(KEY,JSON.stringify(store))}catch(x){}
- upd();push()});
-upd();
-var LK="sd-roadmap-last",tm;
-try{var ls=localStorage.getItem(LK);if(ls&&!location.hash&&document.getElementById(ls)){setTimeout(function(){document.getElementById(ls).scrollIntoView()},0)}}catch(e){}
-window.addEventListener("scroll",function(){clearTimeout(tm);tm=setTimeout(function(){
- var cur=null,secs=document.querySelectorAll("section");
- for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<=window.innerHeight*0.4)cur=secs[i].id}
- try{if(cur)localStorage.setItem(LK,cur)}catch(e){}
- if(cur){lastSec=cur;push()}},200)});
-var lastSec="",sb=null,uid=null,pt;
-function msg(t){document.getElementById("authmsg").textContent=t}
-function push(){if(!sb||!uid)return;clearTimeout(pt);pt=setTimeout(function(){
- sb.from("roadmap_progress").upsert({user_id:uid,checks:store,last_section:lastSec,updated_at:new Date().toISOString()}).then(function(r){msg(r.error?"Save failed: "+r.error.message:"Saved to your account")})},600)}
-async function loadCloud(){
- var r=await sb.from("roadmap_progress").select("checks,last_section").eq("user_id",uid).maybeSingle();
- if(r.error){msg("Load failed: "+r.error.message);return}
- if(r.data){
-  store=r.data.checks||{};
-  document.querySelectorAll("input[type=checkbox]").forEach(function(c){c.checked=!!store[c.id]});
-  try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}
-  upd();msg("Loaded from your account");
-  var l=r.data.last_section;
-  if(l&&document.getElementById(l)){lastSec=l;document.getElementById(l).scrollIntoView()}
- }else{push()}
-}
-function authUI(){document.getElementById("authform").hidden=!!uid;document.getElementById("authed").hidden=!uid}
-if(window.supabase&&SUPABASE_URL.indexOf("YOUR_")!==0){
- sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
- sb.auth.onAuthStateChange(function(ev,ses){uid=ses&&ses.user?ses.user.id:null;authUI();document.getElementById("who").textContent=uid?"Signed in as "+ses.user.email:"";if(uid)setTimeout(loadCloud,0);else msg("Sign in to save to your account.")});
- document.getElementById("google").onclick=function(){sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}}).then(function(r){if(r.error)msg(r.error.message)})};
- document.getElementById("signout").onclick=function(){sb.auth.signOut()};
-}else{
- document.getElementById("authform").hidden=true;
- msg("Supabase is not configured yet. Progress saves in this browser only.");
-}
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Roadmap to Becoming a System Designer</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b7a8a'/%3E%3Cpath d='M32 22v10M32 32H18v10M32 32h14v10' stroke='%23fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='24' y='10' width='16' height='12' rx='3' fill='%23fff'/%3E%3Crect x='10' y='42' width='16' height='12' rx='3' fill='%23fff'/%3E%3Crect x='38' y='42' width='16' height='12' rx='3' fill='%23fff'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f4f7fa;
+        --card: #fff;
+        --ink: #12213a;
+        --mute: #5b6b82;
+        --line: #d9e1ea;
+        --acc: #0b7a8a;
+        --accsoft: #dff1f4;
+        --done: #2b8a5a;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0e1626;
+          --card: #16223a;
+          --ink: #e8eef7;
+          --mute: #9fb0c7;
+          --line: #2a3a56;
+          --acc: #4fc3d3;
+          --accsoft: #16394a;
+          --done: #5fcf95;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0e1626;
+        --card: #16223a;
+        --ink: #e8eef7;
+        --mute: #9fb0c7;
+        --line: #2a3a56;
+        --acc: #4fc3d3;
+        --accsoft: #16394a;
+        --done: #5fcf95;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+        scroll-behavior: smooth;
+      }
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          400 16px/1.6 "IBM Plex Sans",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+      h1,
+      h2 {
+        font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+        line-height: 1.15;
+        margin: 0;
+      }
+      header {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 48px 24px 16px;
+      }
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 700;
+        max-width: 18ch;
+      }
+      .logo {
+        width: 56px;
+        height: 56px;
+        display: block;
+        margin-bottom: 18px;
+      }
+      header p {
+        color: var(--mute);
+        max-width: 56ch;
+        margin: 14px 0 0;
+      }
+      .wrap {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 16px 24px 64px;
+        display: grid;
+        grid-template-columns: 230px 1fr;
+        gap: 40px;
+      }
+      nav {
+        position: sticky;
+        top: calc(16px + env(safe-area-inset-top, 0px));
+        align-self: start;
+      }
+      .total {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-bottom: 14px;
+      }
+      .total b {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 1.6rem;
+      }
+      .bar {
+        height: 6px;
+        background: var(--line);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: var(--acc);
+        transition: width 0.25s;
+      }
+      nav a {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 6px 10px;
+        color: var(--mute);
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
+      nav a:hover,
+      nav a:focus-visible {
+        background: var(--accsoft);
+        color: var(--ink);
+        outline: none;
+      }
+      nav a.ok {
+        color: var(--done);
+      }
+      main {
+        border-left: 2px solid var(--line);
+        padding-left: 32px;
+      }
+      section {
+        position: relative;
+        margin-bottom: 36px;
+      }
+      section:before {
+        content: "";
+        position: absolute;
+        left: -41px;
+        top: 7px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 3px solid var(--acc);
+      }
+      section.ok:before {
+        background: var(--done);
+        border-color: var(--done);
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      .time {
+        color: var(--mute);
+        font-size: 0.9rem;
+        margin: 2px 0 10px;
+      }
+      .intro {
+        margin: 0 0 10px;
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul ul {
+        margin: 4px 0 4px 28px;
+      }
+      li {
+        margin: 2px 0;
+      }
+      label {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 6px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      label:hover {
+        background: var(--accsoft);
+      }
+      input[type="checkbox"] {
+        appearance: none;
+        flex: none;
+        width: 19px;
+        height: 19px;
+        margin: 3px 0 0;
+        border: 2px solid var(--mute);
+        border-radius: 5px;
+        background: var(--card);
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+      }
+      input[type="checkbox"]:checked {
+        background: var(--done);
+        border-color: var(--done);
+      }
+      input[type="checkbox"]:checked:after {
+        content: "";
+        width: 5px;
+        height: 9px;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg) translate(-1px, -1px);
+      }
+      input[type="checkbox"]:focus-visible {
+        outline: 3px solid var(--acc);
+        outline-offset: 2px;
+      }
+      input[type="checkbox"]:checked + span {
+        color: var(--mute);
+        text-decoration: line-through;
+        text-decoration-color: var(--line);
+      }
+      .goal {
+        margin: 12px 0 0;
+        padding: 10px 14px;
+        border-left: 4px solid var(--acc);
+        background: var(--accsoft);
+        border-radius: 0 8px 8px 0;
+      }
+      .res a {
+        color: var(--acc);
+        text-underline-offset: 3px;
+      }
+      .res a:focus-visible {
+        outline: 3px solid var(--acc);
+        outline-offset: 2px;
+        border-radius: 3px;
+      }
+      .res li {
+        padding: 4px 8px;
+      }
+      .auth input {
+        width: 100%;
+        margin: 0 0 8px;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.9rem;
+      }
+      .auth input:focus-visible {
+        outline: 3px solid var(--acc);
+        outline-offset: 1px;
+      }
+      .auth button {
+        font: inherit;
+        font-size: 0.85rem;
+        padding: 7px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--acc);
+        background: var(--acc);
+        color: var(--card);
+        cursor: pointer;
+      }
+      .auth button.ghost {
+        background: transparent;
+        color: var(--acc);
+      }
+      .auth .btns {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .auth .small {
+        color: var(--mute);
+        font-size: 0.8rem;
+        margin-top: 8px;
+      }
+      .auth [hidden] {
+        display: none;
+      }
+      footer {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 0 24px 40px;
+        color: var(--mute);
+        font-size: 0.85rem;
+      }
+      @media (max-width: 760px) {
+        .wrap {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        nav {
+          position: static;
+        }
+        nav .links {
+          display: none;
+        }
+        main {
+          padding-left: 24px;
+        }
+        section:before {
+          left: -33px;
+        }
+        header {
+          padding-top: 32px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .bar i {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <svg
+        class="logo"
+        viewBox="0 0 64 64"
+        role="img"
+        aria-label="System design roadmap logo"
+      >
+        <rect width="64" height="64" rx="14" fill="#0b7a8a" />
+        <path
+          d="M32 22v10M32 32H18v10M32 32h14v10"
+          stroke="#fff"
+          stroke-width="3"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <rect x="24" y="10" width="16" height="12" rx="3" fill="#fff" />
+        <rect x="10" y="42" width="16" height="12" rx="3" fill="#fff" />
+        <rect x="38" y="42" width="16" height="12" rx="3" fill="#fff" />
+      </svg>
+      <h1>Roadmap to Becoming a System Designer</h1>
+      <p>
+        A dependency-ordered study path built from the roadmap.sh System Design
+        checklist. Each stage prepares you for the next. Tick items off as you
+        go; your progress is saved in this browser.
+      </p>
+    </header>
+    <div class="wrap">
+      <nav aria-label="Stages">
+        <div class="total">
+          <b id="pct">0%</b> <span style="color: var(--mute)">complete</span>
+          <div class="bar"><i id="tbar"></i></div>
+        </div>
+        <div class="total auth" id="auth">
+          <div id="authform">
+            <button type="button" id="google">Continue with Google</button>
+          </div>
+          <div id="authed" hidden>
+            <div class="small" id="who"></div>
+            <button type="button" id="signout" class="ghost">Sign out</button>
+          </div>
+          <div class="small" id="authmsg" role="status"></div>
+        </div>
+        <div class="links" id="links"></div>
+      </nav>
+      <main id="main"></main>
+    </div>
+    <footer>
+      A realistic timeline is about 3-4 months at 5-8 hours a week to get
+      comfortable. The skill keeps growing with practice after that.
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script>
+      var SUPABASE_URL = "https://ihzkrxrqkrmdaunlhkon.supabase.co",
+        SUPABASE_ANON_KEY =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloemtyeHJxa3JtZGF1bmxoa29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5MDMwMDUsImV4cCI6MjEwNzQ3OTAwNX0.jUjD9HJ5oGLmlPHJAwIkhJV9BJ-gQHVGD88GlM0z1Ps";
+      var S = [
+        {
+          t: "Foundations",
+          w: "1-2 weeks",
+          i: "Learn the vocabulary and the core trade-offs first.",
+          l: [
+            "What system design is, and how to approach a design problem",
+            "Performance vs scalability, latency vs throughput",
+            "Availability vs consistency, and the **CAP theorem** (AP vs CP)",
+            'Availability in numbers (the "nines"), and availability in parallel vs in sequence',
+          ],
+          g: "You can explain why you can't have everything, and what you'd trade away.",
+        },
+        {
+          t: "Networking and Building Blocks",
+          w: "2-3 weeks",
+          l: [
+            "DNS, HTTP, TCP vs UDP",
+            "CDNs (push vs pull)",
+            "Load balancers: L4 vs L7, algorithms, load balancer vs reverse proxy",
+            "Horizontal vs vertical scaling",
+            "Application layer: microservices, service discovery",
+          ],
+        },
+        {
+          t: "Data",
+          w: "3-4 weeks",
+          i: "This is the most important stage, because most real design problems come down to data.",
+          l: [
+            "**SQL vs NoSQL**, and the four NoSQL types: key-value, document, wide-column, graph",
+            "Replication (master-slave, master-master), failover (active-active, active-passive)",
+            "**Sharding**, federation, denormalization, SQL tuning",
+            "Consistency patterns: weak, eventual, strong",
+          ],
+        },
+        {
+          t: "Caching and Asynchronism",
+          w: "2 weeks",
+          l: [
+            "Cache levels: client, CDN, web server, database, application",
+            "Strategies: cache-aside, write-through, write-behind, refresh-ahead",
+            "Message queues, task queues, back pressure",
+            "Background jobs (event-driven vs scheduled)",
+            "Idempotent operations",
+          ],
+        },
+        {
+          t: "Communication APIs",
+          w: "1 week",
+          l: ["RPC vs REST vs gRPC vs GraphQL, and when to pick each"],
+        },
+        {
+          t: "Reliability and Operations",
+          w: "2-3 weeks",
+          l: [
+            "Monitoring: health, availability, performance, security, usage, plus alerting and visualization",
+            "Performance antipatterns: chatty I/O, busy database, no caching, noisy neighbor, retry storm, and so on",
+            "Reliability patterns: **circuit breaker, bulkhead, retry, throttling, health endpoint monitoring**",
+          ],
+        },
+        {
+          t: "Cloud Design Patterns",
+          w: "ongoing",
+          i: "You don't need to master all of these. Aim for an overview of each, and prioritize:",
+          l: [
+            "**Messaging:** pub/sub, competing consumers, queue-based load leveling",
+            "**Data:** CQRS, event sourcing, materialized view, cache-aside",
+            "**Design:** strangler fig, sidecar, API gateway patterns, backends for frontend",
+            "**Resiliency:** leader election, compensating transaction",
+          ],
+        },
+        {
+          t: "Practice",
+          w: "start alongside Stage 3",
+          i: "Reading alone won't make you a system designer. Start this alongside Stage 3 rather than waiting until the end.",
+          l: [
+            "**Do design exercises.** Start with a URL shortener, then a rate limiter, a chat app, a news feed, a notification service, and a video streaming platform.",
+            [
+              "**Use a repeatable framework.**",
+              [
+                "Clarify requirements, both functional and non-functional.",
+                "Estimate scale (users, QPS, storage).",
+                "Draw a high-level design.",
+                "Go deeper on the data model and bottlenecks.",
+                "Discuss trade-offs and failure modes.",
+              ],
+            ],
+            "**Read real architecture write-ups.** Engineering blogs from Netflix, Uber, Discord, and Stripe are good sources.",
+            "**Build something small.** Add a cache, a queue, or a read replica to a project of your own so you see these things break.",
+            "**Explain your designs out loud** or to a peer, since interviews and design reviews are conversations.",
+          ],
+        },
+      ];
+      var R = [
+        "[*Designing Data-Intensive Applications*](https://dataintensive.net/) by Martin Kleppmann (the best single book)",
+        "[The System Design Primer](https://github.com/donnemartin/system-design-primer) on GitHub",
+        "The [roadmap.sh System Design roadmap](https://roadmap.sh/system-design), as a checklist to tick off",
+      ];
+      var store = {},
+        KEY = "sd-roadmap-v1",
+        n = 0;
+      try {
+        store = JSON.parse(localStorage.getItem(KEY) || "{}") || {};
+      } catch (e) {
+        store = {};
+      }
+      function fmt(s) {
+        return s
+          .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+          .replace(
+            /\[(.+?)\]\((https:\/\/[^)\s]+)\)/g,
+            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>',
+          )
+          .replace(/\*(.+?)\*/g, "<em>$1</em>");
+      }
+      function item(x, si) {
+        if (Array.isArray(x)) {
+          return (
+            "<li>" +
+            row(x[0], si) +
+            "<ul>" +
+            x[1]
+              .map(function (y) {
+                return "<li>" + row(y, si) + "</li>";
+              })
+              .join("") +
+            "</ul></li>"
+          );
+        }
+        return "<li>" + row(x, si) + "</li>";
+      }
+      function row(t, si) {
+        var id = "c" + n++;
+        return (
+          '<label><input type="checkbox" data-s="' +
+          si +
+          '" id="' +
+          id +
+          '"' +
+          (store[id] ? " checked" : "") +
+          "><span>" +
+          fmt(t) +
+          "</span></label>"
+        );
+      }
+      var h = "",
+        lk = "";
+      S.forEach(function (s, i) {
+        h +=
+          '<section id="s' +
+          i +
+          '"><h2>Stage ' +
+          (i + 1) +
+          ": " +
+          s.t +
+          '</h2><div class="time">' +
+          s.w +
+          "</div>" +
+          (s.i ? '<p class="intro">' + fmt(s.i) + "</p>" : "") +
+          "<ul>" +
+          s.l
+            .map(function (x) {
+              return item(x, i);
+            })
+            .join("") +
+          "</ul>" +
+          (s.g
+            ? '<p class="goal"><strong>Goal:</strong> ' + s.g + "</p>"
+            : "") +
+          "</section>";
+        lk +=
+          '<a href="#s' +
+          i +
+          '" id="n' +
+          i +
+          '"><span>' +
+          (i + 1) +
+          ". " +
+          s.t +
+          '</span><span id="p' +
+          i +
+          '"></span></a>';
+      });
+      h +=
+        '<section id="res"><h2>Recommended resources</h2><ul class="res">' +
+        R.map(function (r) {
+          return "<li>" + fmt(r) + "</li>";
+        }).join("") +
+        "</ul></section>";
+      document.getElementById("main").innerHTML = h;
+      document.getElementById("links").innerHTML = lk;
+      function upd() {
+        var all = document.querySelectorAll("input[type=checkbox]"),
+          d = 0;
+        for (var i = 0; i < all.length; i++) if (all[i].checked) d++;
+        var p = Math.round((100 * d) / all.length);
+        document.getElementById("pct").textContent = p + "%";
+        document.getElementById("tbar").style.width = p + "%";
+        S.forEach(function (s, i) {
+          var q = document.querySelectorAll('input[data-s="' + i + '"]'),
+            c = 0;
+          for (var j = 0; j < q.length; j++) if (q[j].checked) c++;
+          document.getElementById("p" + i).textContent = c + "/" + q.length;
+          var ok = c === q.length;
+          document.getElementById("s" + i).classList.toggle("ok", ok);
+          document.getElementById("n" + i).classList.toggle("ok", ok);
+        });
+      }
+      document.addEventListener("change", function (e) {
+        if (e.target.type !== "checkbox") return;
+        if (e.target.checked) store[e.target.id] = 1;
+        else delete store[e.target.id];
+        try {
+          localStorage.setItem(KEY, JSON.stringify(store));
+        } catch (x) {}
+        upd();
+        push();
+      });
+      upd();
+      var LK = "sd-roadmap-last",
+        tm;
+      try {
+        var ls = localStorage.getItem(LK);
+        if (ls && !location.hash && document.getElementById(ls)) {
+          setTimeout(function () {
+            document.getElementById(ls).scrollIntoView();
+          }, 0);
+        }
+      } catch (e) {}
+      window.addEventListener("scroll", function () {
+        clearTimeout(tm);
+        tm = setTimeout(function () {
+          var cur = null,
+            secs = document.querySelectorAll("section");
+          for (var i = 0; i < secs.length; i++) {
+            if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4)
+              cur = secs[i].id;
+          }
+          try {
+            if (cur) localStorage.setItem(LK, cur);
+          } catch (e) {}
+          if (cur) {
+            lastSec = cur;
+            push();
+          }
+        }, 200);
+      });
+      var lastSec = "",
+        sb = null,
+        uid = null,
+        pt;
+      function msg(t) {
+        document.getElementById("authmsg").textContent = t;
+      }
+      function push() {
+        if (!sb || !uid) return;
+        clearTimeout(pt);
+        pt = setTimeout(function () {
+          sb.from("roadmap_progress")
+            .upsert({
+              user_id: uid,
+              checks: store,
+              last_section: lastSec,
+              updated_at: new Date().toISOString(),
+            })
+            .then(function (r) {
+              msg(
+                r.error
+                  ? "Save failed: " + r.error.message
+                  : "Saved to your account",
+              );
+            });
+        }, 600);
+      }
+      async function loadCloud() {
+        var r = await sb
+          .from("roadmap_progress")
+          .select("checks,last_section")
+          .eq("user_id", uid)
+          .maybeSingle();
+        if (r.error) {
+          msg("Load failed: " + r.error.message);
+          return;
+        }
+        if (r.data) {
+          store = r.data.checks || {};
+          document
+            .querySelectorAll("input[type=checkbox]")
+            .forEach(function (c) {
+              c.checked = !!store[c.id];
+            });
+          try {
+            localStorage.setItem(KEY, JSON.stringify(store));
+          } catch (e) {}
+          upd();
+          msg("Loaded from your account");
+          var l = r.data.last_section;
+          if (l && document.getElementById(l)) {
+            lastSec = l;
+            document.getElementById(l).scrollIntoView();
+          }
+        } else {
+          push();
+        }
+      }
+      function authUI() {
+        document.getElementById("authform").hidden = !!uid;
+        document.getElementById("authed").hidden = !uid;
+      }
+      if (window.supabase && SUPABASE_URL.indexOf("YOUR_") !== 0) {
+        sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        sb.auth.onAuthStateChange(function (ev, ses) {
+          uid = ses && ses.user ? ses.user.id : null;
+          authUI();
+          document.getElementById("who").textContent = uid
+            ? "Signed in as " + ses.user.email
+            : "";
+          if (uid) setTimeout(loadCloud, 0);
+          else msg("Sign in to save to your account.");
+        });
+        document.getElementById("google").onclick = function () {
+          sb.auth
+            .signInWithOAuth({
+              provider: "google",
+              options: { redirectTo: location.origin + location.pathname },
+            })
+            .then(function (r) {
+              if (r.error) msg(r.error.message);
+            });
+        };
+        document.getElementById("signout").onclick = function () {
+          sb.auth.signOut();
+        };
+      } else {
+        document.getElementById("authform").hidden = true;
+        msg(
+          "Supabase is not configured yet. Progress saves in this browser only.",
+        );
+      }
+    </script>
+  </body>
 </html>

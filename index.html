@@ -504,8 +504,11 @@
       var store = {},
         KEY = "sd-roadmap-v1",
         n = 0;
+      function k(b) {
+        return b + ":" + (uid || "guest");
+      }
       try {
-        store = JSON.parse(localStorage.getItem(KEY) || "{}") || {};
+        store = JSON.parse(localStorage.getItem(k(KEY)) || "{}") || {};
       } catch (e) {
         store = {};
       }
@@ -616,7 +619,7 @@
         if (e.target.checked) store[e.target.id] = 1;
         else delete store[e.target.id];
         try {
-          localStorage.setItem(KEY, JSON.stringify(store));
+          localStorage.setItem(k(KEY), JSON.stringify(store));
         } catch (x) {}
         upd();
         push();
@@ -625,7 +628,7 @@
       var LK = "sd-roadmap-last",
         tm;
       try {
-        var ls = localStorage.getItem(LK);
+        var ls = localStorage.getItem(k(LK));
         if (ls && !location.hash && document.getElementById(ls)) {
           setTimeout(function () {
             document.getElementById(ls).scrollIntoView();
@@ -642,7 +645,7 @@
               cur = secs[i].id;
           }
           try {
-            if (cur) localStorage.setItem(LK, cur);
+            if (cur) localStorage.setItem(k(LK), cur);
           } catch (e) {}
           if (cur) {
             lastSec = cur;
@@ -678,11 +681,13 @@
         }, 600);
       }
       async function loadCloud() {
+        var me = uid;
         var r = await sb
           .from("roadmap_progress")
           .select("checks,last_section")
           .eq("user_id", uid)
           .maybeSingle();
+        if (me !== uid) return;
         if (r.error) {
           msg("Load failed: " + r.error.message);
           return;
@@ -695,7 +700,7 @@
               c.checked = !!store[c.id];
             });
           try {
-            localStorage.setItem(KEY, JSON.stringify(store));
+            localStorage.setItem(k(KEY), JSON.stringify(store));
           } catch (e) {}
           upd();
           msg("Loaded from your account");
@@ -714,12 +719,32 @@
       }
       if (window.supabase && SUPABASE_URL.indexOf("YOUR_") !== 0) {
         sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        var started = false;
+        function switchUser() {
+          try {
+            store = JSON.parse(localStorage.getItem(k(KEY)) || "{}") || {};
+          } catch (e) {
+            store = {};
+          }
+          lastSec = "";
+          document
+            .querySelectorAll("input[type=checkbox]")
+            .forEach(function (c) {
+              c.checked = !!store[c.id];
+            });
+          upd();
+        }
         sb.auth.onAuthStateChange(function (ev, ses) {
-          uid = ses && ses.user ? ses.user.id : null;
-          authUI();
-          document.getElementById("who").textContent = uid
+          var nu = ses && ses.user ? ses.user.id : null;
+          document.getElementById("who").textContent = nu
             ? "Signed in as " + ses.user.email
             : "";
+          if (started && nu === uid) return;
+          var first = !started;
+          started = true;
+          uid = nu;
+          authUI();
+          if (!first || uid) switchUser();
           if (uid) setTimeout(loadCloud, 0);
           else msg("Sign in to save to your account.");
         });

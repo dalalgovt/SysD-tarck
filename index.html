@@ -47,6 +47,8 @@ input[type=checkbox]:checked:after{content:"";width:5px;height:9px;border:solid 
 input[type=checkbox]:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 input[type=checkbox]:checked+span{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--line)}
 .goal{margin:12px 0 0;padding:10px 14px;border-left:4px solid var(--acc);background:var(--accsoft);border-radius:0 8px 8px 0}
+.res a{color:var(--acc);text-underline-offset:3px}
+.res a:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:3px}
 .res li{padding:4px 8px}
 .auth input{width:100%;margin:0 0 8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:.9rem}
 .auth input:focus-visible{outline:3px solid var(--acc);outline-offset:1px}
@@ -69,7 +71,7 @@ footer{max-width:1040px;margin:0 auto;padding:0 24px 40px;color:var(--mute);font
 <div class="wrap">
 <nav aria-label="Stages">
 <div class="total"><b id="pct">0%</b> <span style="color:var(--mute)">complete</span><div class="bar"><i id="tbar"></i></div></div>
-<div class="total auth" id="auth"><div id="authform"><input type="email" id="em" placeholder="Email" autocomplete="email" aria-label="Email"><input type="password" id="pw" placeholder="Password" autocomplete="current-password" aria-label="Password"><div class="btns"><button type="button" id="signin">Sign in</button><button type="button" id="signup" class="ghost">Create account</button></div></div><div id="authed" hidden><button type="button" id="signout" class="ghost">Sign out</button></div><div class="small" id="authmsg" role="status"></div></div>
+<div class="total auth" id="auth"><div id="authform"><button type="button" id="google">Continue with Google</button></div><div id="authed" hidden><div class="small" id="who"></div><button type="button" id="signout" class="ghost">Sign out</button></div><div class="small" id="authmsg" role="status"></div></div>
 <div class="links" id="links"></div>
 </nav>
 <main id="main"></main>
@@ -77,7 +79,7 @@ footer{max-width:1040px;margin:0 auto;padding:0 24px 40px;color:var(--mute);font
 <footer>A realistic timeline is about 3-4 months at 5-8 hours a week to get comfortable. The skill keeps growing with practice after that.</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-var SUPABASE_URL="https://ihzkrxrqkrmdaunlhkon.supabase.co/rest/v1/",SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloemtyeHJxa3JtZGF1bmxoa29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5MDMwMDUsImV4cCI6MjEwNzQ3OTAwNX0.jUjD9HJ5oGLmlPHJAwIkhJV9BJ-gQHVGD88GlM0z1Ps";
+var SUPABASE_URL="YOUR_SUPABASE_URL",SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
 var S=[
 {t:"Foundations",w:"1-2 weeks",i:"Learn the vocabulary and the core trade-offs first.",l:[
 "What system design is, and how to approach a design problem",
@@ -118,10 +120,10 @@ g:"You can explain why you can't have everything, and what you'd trade away."},
 "**Build something small.** Add a cache, a queue, or a read replica to a project of your own so you see these things break.",
 "**Explain your designs out loud** or to a peer, since interviews and design reviews are conversations."]}
 ];
-var R=["*Designing Data-Intensive Applications* by Martin Kleppmann (the best single book)","The System Design Primer on GitHub","The roadmap.sh System Design roadmap, as a checklist to tick off"];
+var R=["[*Designing Data-Intensive Applications*](https://dataintensive.net/) by Martin Kleppmann (the best single book)","[The System Design Primer](https://github.com/donnemartin/system-design-primer) on GitHub","The [roadmap.sh System Design roadmap](https://roadmap.sh/system-design), as a checklist to tick off"];
 var store={},KEY="sd-roadmap-v1",n=0;
 try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){store={}}
-function fmt(s){return s.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>")}
+function fmt(s){return s.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\[(.+?)\]\((https:\/\/[^)\s]+)\)/g,"<a href=\"$2\" target=\"_blank\" rel=\"noopener noreferrer\">$1</a>").replace(/\*(.+?)\*/g,"<em>$1</em>")}
 function item(x,si){
  if(Array.isArray(x)){return "<li>"+row(x[0],si)+"<ul>"+x[1].map(function(y){return "<li>"+row(y,si)+"</li>"}).join("")+"</ul></li>"}
  return "<li>"+row(x,si)+"</li>"}
@@ -167,16 +169,14 @@ async function loadCloud(){
   try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}
   upd();msg("Loaded from your account");
   var l=r.data.last_section;
-  if(l&&!location.hash&&document.getElementById(l)){lastSec=l;document.getElementById(l).scrollIntoView()}
+  if(l&&document.getElementById(l)){lastSec=l;document.getElementById(l).scrollIntoView()}
  }else{push()}
 }
 function authUI(){document.getElementById("authform").hidden=!!uid;document.getElementById("authed").hidden=!uid}
 if(window.supabase&&SUPABASE_URL.indexOf("YOUR_")!==0){
  sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
- sb.auth.onAuthStateChange(function(ev,ses){uid=ses&&ses.user?ses.user.id:null;authUI();if(uid)setTimeout(loadCloud,0);else msg("Sign in to save to your account.")});
- function creds(){return{email:document.getElementById("em").value.trim(),password:document.getElementById("pw").value}}
- document.getElementById("signin").onclick=async function(){var r=await sb.auth.signInWithPassword(creds());if(r.error)msg(r.error.message)};
- document.getElementById("signup").onclick=async function(){var r=await sb.auth.signUp(creds());msg(r.error?r.error.message:"Account created. Check your email if confirmation is required, then sign in.")};
+ sb.auth.onAuthStateChange(function(ev,ses){uid=ses&&ses.user?ses.user.id:null;authUI();document.getElementById("who").textContent=uid?"Signed in as "+ses.user.email:"";if(uid)setTimeout(loadCloud,0);else msg("Sign in to save to your account.")});
+ document.getElementById("google").onclick=function(){sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}}).then(function(r){if(r.error)msg(r.error.message)})};
  document.getElementById("signout").onclick=function(){sb.auth.signOut()};
 }else{
  document.getElementById("authform").hidden=true;
